@@ -6,7 +6,7 @@
 
 # zeats-legacy-rest-api
 
-Extensions to solve common problems when working with RestApi
+Methods to solve common problems when working with RestApi
 
 [![Build Status](https://dev.azure.com/zeats/Legacy/_apis/build/status/zeats-legacy-rest-api?branchName=master)](https://dev.azure.com/zeats/Legacy/_build/latest?definitionId=19&branchName=master)
 [![NuGet](https://img.shields.io/nuget/v/Zeats.Legacy.RestApi.svg)](https://www.nuget.org/packages/Zeats.Legacy.RestApi)
@@ -17,12 +17,22 @@ Extensions to solve common problems when working with RestApi
 Install-Package Zeats.Legacy.RestApi
 ```
 
-## Extensions
+## Methods
 
-### IpValidator.IsIpV4(string rest-api)
-Checks if the content of a string is a valid RestApi V4
+### IRestResponse<T> Post<T>(string resource, object model, Parameter[] headers = null, Parameter[] parameters = null)
+Send a POST request to API
 ```c#
-IpValidator.IsIpV4("10.a.30.40") /* return false */
-IpValidator.IsIpV4("10.0.0.150") /* return true */
+public class Product
+{
+	public int Id { get; set; }
+	public string Title { get; set; }
+}
+
+const string apiUrl = "https://sample-api.com";
+            
+var unitOfWork = new UnitOfWorkRestApi(apiUrl);
+
+var product = new Product() { Id = 1, Title = "Lorem ipsum"};
+var restResponse = unitOfWork.Post<Product>("product", product);
 ```
 ---
